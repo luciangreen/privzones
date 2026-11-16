@@ -1,0 +1,402 @@
+privzones: 200 inputs and outputs, from real runs (io/ios.pl has the same as Prolog facts).
+
+1. check([copy(diary,tax),send(diary,diary),copy(diary,iedit)], [diary-secret,notes-(public),tax-(public),web-(public),chat-secret,iedit-private], [diary-tax])
+   => [copy(diary,iedit)]
+2. allowed(secret, private)
+   => false
+3. check([send(diary,notes),send(chat,tax),paste(tax,chat),paste(diary,chat)], [diary-private,notes-secret,tax-private,web-secret,chat-private,iedit-secret], [])
+   => []
+4. allowed(public, secret)
+   => true
+5. check([paste(diary,iedit),send(diary,tax),send(web,chat),copy(chat,tax),send(web,tax)], [diary-(public),notes-(public),tax-secret,web-(public),chat-(public),iedit-secret], [])
+   => []
+6. allowed(public, private)
+   => true
+7. check([copy(web,chat),send(notes,chat)], [diary-(public),notes-(public),tax-(public),web-secret,chat-(public),iedit-secret], [])
+   => [copy(web,chat)]
+8. allowed(public, secret)
+   => true
+9. check([copy(diary,iedit),copy(chat,diary),send(tax,diary),send(web,iedit),paste(chat,iedit)], [diary-private,notes-(public),tax-(public),web-(public),chat-(public),iedit-(public)], [diary-iedit])
+   => []
+10. allowed(private, public)
+   => false
+11. check([send(iedit,tax),copy(chat,diary)], [diary-secret,notes-secret,tax-(public),web-(public),chat-private,iedit-private], [])
+   => [send(iedit,tax)]
+12. allowed(private, private)
+   => true
+13. check([send(chat,diary),send(diary,web),copy(web,web)], [diary-secret,notes-secret,tax-(public),web-(public),chat-(public),iedit-private], [])
+   => [send(diary,web)]
+14. allowed(secret, private)
+   => false
+15. check([send(iedit,diary),paste(chat,tax),send(diary,web),send(notes,diary),copy(diary,diary)], [diary-private,notes-secret,tax-secret,web-secret,chat-private,iedit-private], [])
+   => [send(notes,diary)]
+16. allowed(public, public)
+   => true
+17. check([paste(tax,notes),copy(notes,tax),send(notes,web),paste(chat,tax),copy(tax,web)], [diary-secret,notes-secret,tax-(public),web-private,chat-private,iedit-secret], [tax-notes])
+   => [copy(notes,tax),send(notes,web),paste(chat,tax)]
+18. allowed(secret, private)
+   => false
+19. check([copy(web,diary),send(chat,chat),copy(chat,notes)], [diary-private,notes-secret,tax-secret,web-(public),chat-secret,iedit-private], [])
+   => []
+20. allowed(private, private)
+   => true
+21. check([copy(diary,chat)], [diary-(public),notes-secret,tax-secret,web-(public),chat-(public),iedit-private], [])
+   => []
+22. allowed(public, private)
+   => true
+23. check([paste(chat,chat),paste(diary,iedit)], [diary-secret,notes-(public),tax-secret,web-secret,chat-(public),iedit-private], [chat-chat])
+   => [paste(diary,iedit)]
+24. allowed(secret, public)
+   => false
+25. check([paste(notes,tax),send(diary,notes),copy(diary,diary),paste(notes,web),copy(diary,diary)], [diary-secret,notes-private,tax-(public),web-secret,chat-secret,iedit-private], [])
+   => [paste(notes,tax),send(diary,notes)]
+26. allowed(public, private)
+   => true
+27. check([paste(chat,tax),send(chat,web)], [diary-secret,notes-(public),tax-private,web-(public),chat-(public),iedit-(public)], [chat-tax])
+   => []
+28. allowed(private, private)
+   => true
+29. check([send(iedit,web),paste(notes,notes),paste(notes,tax),paste(diary,notes)], [diary-(public),notes-private,tax-(public),web-secret,chat-private,iedit-private], [iedit-web])
+   => [paste(notes,tax)]
+30. allowed(private, secret)
+   => true
+31. check([copy(tax,iedit),copy(iedit,iedit),paste(tax,iedit),copy(diary,diary)], [diary-(public),notes-(public),tax-(public),web-private,chat-private,iedit-private], [tax-iedit])
+   => []
+32. allowed(public, secret)
+   => true
+33. check([send(diary,iedit)], [diary-private,notes-(public),tax-secret,web-secret,chat-secret,iedit-(public)], [])
+   => [send(diary,iedit)]
+34. allowed(secret, public)
+   => false
+35. check([copy(web,chat)], [diary-private,notes-(public),tax-secret,web-(public),chat-secret,iedit-(public)], [])
+   => []
+36. allowed(public, public)
+   => true
+37. check([send(tax,iedit),paste(chat,tax),copy(web,iedit)], [diary-secret,notes-private,tax-secret,web-secret,chat-private,iedit-secret], [])
+   => []
+38. allowed(public, public)
+   => true
+39. check([paste(notes,chat),copy(notes,web),copy(diary,web),paste(iedit,notes),send(iedit,chat)], [diary-(public),notes-secret,tax-private,web-(public),chat-(public),iedit-secret], [])
+   => [paste(notes,chat),copy(notes,web),send(iedit,chat)]
+40. allowed(secret, public)
+   => false
+41. check([copy(web,tax),paste(chat,notes)], [diary-secret,notes-secret,tax-(public),web-secret,chat-secret,iedit-secret], [])
+   => [copy(web,tax)]
+42. allowed(public, public)
+   => true
+43. check([copy(web,diary),send(tax,chat)], [diary-private,notes-(public),tax-private,web-secret,chat-secret,iedit-secret], [])
+   => [copy(web,diary)]
+44. allowed(secret, public)
+   => false
+45. check([send(web,notes)], [diary-private,notes-(public),tax-private,web-(public),chat-secret,iedit-private], [web-notes])
+   => []
+46. allowed(private, public)
+   => false
+47. check([paste(diary,notes),paste(notes,notes)], [diary-(public),notes-(public),tax-(public),web-(public),chat-secret,iedit-(public)], [])
+   => []
+48. allowed(secret, secret)
+   => true
+49. check([send(iedit,chat),paste(chat,iedit),paste(chat,tax),send(diary,web),paste(web,notes)], [diary-secret,notes-secret,tax-secret,web-secret,chat-(public),iedit-secret], [iedit-chat])
+   => []
+50. allowed(public, public)
+   => true
+51. check([copy(web,iedit)], [diary-secret,notes-(public),tax-(public),web-(public),chat-secret,iedit-(public)], [])
+   => []
+52. allowed(private, secret)
+   => true
+53. check([send(chat,diary)], [diary-(public),notes-private,tax-private,web-secret,chat-secret,iedit-private], [chat-diary])
+   => []
+54. allowed(private, secret)
+   => true
+55. check([paste(diary,web)], [diary-secret,notes-private,tax-secret,web-(public),chat-(public),iedit-secret], [])
+   => [paste(diary,web)]
+56. allowed(private, secret)
+   => true
+57. check([paste(notes,iedit),copy(chat,notes),copy(tax,notes),send(iedit,diary)], [diary-(public),notes-private,tax-private,web-private,chat-(public),iedit-secret], [])
+   => [send(iedit,diary)]
+58. allowed(public, private)
+   => true
+59. check([paste(diary,chat),copy(web,web),send(iedit,notes)], [diary-private,notes-private,tax-secret,web-private,chat-(public),iedit-(public)], [])
+   => [paste(diary,chat)]
+60. allowed(private, secret)
+   => true
+61. check([copy(chat,tax),paste(diary,web),paste(chat,notes)], [diary-private,notes-secret,tax-private,web-private,chat-(public),iedit-secret], [])
+   => []
+62. allowed(public, secret)
+   => true
+63. check([paste(chat,web),paste(web,notes),send(web,web),copy(web,chat)], [diary-(public),notes-private,tax-(public),web-private,chat-secret,iedit-(public)], [chat-web])
+   => []
+64. allowed(private, secret)
+   => true
+65. check([paste(tax,iedit),paste(notes,diary),copy(diary,chat),copy(iedit,web)], [diary-(public),notes-secret,tax-secret,web-(public),chat-private,iedit-private], [tax-iedit])
+   => [paste(notes,diary),copy(iedit,web)]
+66. allowed(public, secret)
+   => true
+67. check([send(tax,iedit)], [diary-private,notes-(public),tax-private,web-(public),chat-(public),iedit-(public)], [])
+   => [send(tax,iedit)]
+68. allowed(secret, private)
+   => false
+69. check([paste(chat,tax),send(notes,web),copy(web,chat),send(tax,diary),paste(chat,notes)], [diary-secret,notes-private,tax-secret,web-private,chat-(public),iedit-private], [])
+   => [copy(web,chat)]
+70. allowed(public, private)
+   => true
+71. check([copy(tax,iedit)], [diary-private,notes-secret,tax-private,web-(public),chat-private,iedit-(public)], [])
+   => [copy(tax,iedit)]
+72. allowed(secret, secret)
+   => true
+73. check([paste(tax,iedit),send(chat,chat),send(diary,notes),copy(chat,iedit)], [diary-(public),notes-secret,tax-private,web-secret,chat-private,iedit-secret], [])
+   => []
+74. allowed(private, secret)
+   => true
+75. check([copy(tax,tax),send(tax,iedit),send(tax,web),send(notes,tax)], [diary-secret,notes-(public),tax-(public),web-(public),chat-secret,iedit-private], [tax-tax])
+   => []
+76. allowed(private, public)
+   => false
+77. check([copy(notes,tax)], [diary-secret,notes-private,tax-(public),web-(public),chat-(public),iedit-(public)], [notes-tax])
+   => []
+78. allowed(public, private)
+   => true
+79. check([paste(iedit,diary),send(diary,diary)], [diary-(public),notes-secret,tax-(public),web-private,chat-secret,iedit-(public)], [])
+   => []
+80. allowed(secret, public)
+   => false
+81. check([send(iedit,chat),send(web,iedit),copy(web,diary),copy(web,tax),send(iedit,web)], [diary-private,notes-private,tax-private,web-secret,chat-secret,iedit-secret], [])
+   => [copy(web,diary),copy(web,tax)]
+82. allowed(secret, secret)
+   => true
+83. check([paste(web,notes),send(diary,diary),paste(notes,tax),paste(iedit,chat)], [diary-(public),notes-secret,tax-secret,web-(public),chat-secret,iedit-secret], [])
+   => []
+84. allowed(secret, private)
+   => false
+85. check([copy(notes,notes),send(iedit,web),copy(diary,tax),paste(tax,tax)], [diary-private,notes-private,tax-(public),web-(public),chat-(public),iedit-secret], [notes-notes])
+   => [send(iedit,web),copy(diary,tax)]
+86. allowed(secret, public)
+   => false
+87. check([copy(iedit,notes),copy(iedit,tax),copy(web,tax)], [diary-(public),notes-secret,tax-(public),web-private,chat-secret,iedit-(public)], [])
+   => [copy(web,tax)]
+88. allowed(public, private)
+   => true
+89. check([copy(web,tax),paste(diary,chat),paste(chat,diary),copy(diary,iedit),send(chat,diary)], [diary-private,notes-secret,tax-private,web-(public),chat-private,iedit-secret], [web-tax])
+   => []
+90. allowed(private, secret)
+   => true
+91. check([send(chat,iedit),copy(iedit,web)], [diary-private,notes-secret,tax-secret,web-secret,chat-private,iedit-(public)], [chat-iedit])
+   => []
+92. allowed(public, secret)
+   => true
+93. check([copy(diary,web),send(web,diary),paste(chat,web),send(web,tax)], [diary-secret,notes-(public),tax-secret,web-secret,chat-(public),iedit-private], [])
+   => []
+94. allowed(secret, public)
+   => false
+95. check([send(chat,notes),send(web,iedit),paste(iedit,chat),paste(chat,iedit)], [diary-secret,notes-(public),tax-private,web-secret,chat-secret,iedit-(public)], [])
+   => [send(chat,notes),send(web,iedit),paste(chat,iedit)]
+96. allowed(public, public)
+   => true
+97. check([copy(chat,web),copy(chat,iedit),send(tax,iedit),send(diary,iedit)], [diary-secret,notes-secret,tax-secret,web-private,chat-private,iedit-private], [])
+   => [send(tax,iedit),send(diary,iedit)]
+98. allowed(secret, public)
+   => false
+99. check([copy(diary,notes)], [diary-(public),notes-(public),tax-secret,web-(public),chat-private,iedit-(public)], [])
+   => []
+100. allowed(secret, secret)
+   => true
+101. check([send(iedit,tax),send(notes,diary),copy(diary,iedit)], [diary-secret,notes-secret,tax-private,web-(public),chat-secret,iedit-secret], [])
+   => [send(iedit,tax)]
+102. allowed(public, private)
+   => true
+103. check([paste(diary,notes),send(web,notes),send(web,notes),send(web,iedit)], [diary-secret,notes-(public),tax-private,web-(public),chat-private,iedit-private], [diary-notes])
+   => []
+104. allowed(public, public)
+   => true
+105. check([copy(web,notes),send(chat,iedit),paste(diary,chat),send(tax,chat),copy(iedit,chat)], [diary-private,notes-secret,tax-(public),web-(public),chat-secret,iedit-(public)], [])
+   => [send(chat,iedit)]
+106. allowed(secret, secret)
+   => true
+107. check([paste(chat,diary),paste(tax,web)], [diary-secret,notes-private,tax-private,web-private,chat-private,iedit-secret], [])
+   => []
+108. allowed(secret, private)
+   => false
+109. check([send(diary,notes),paste(iedit,chat)], [diary-secret,notes-(public),tax-private,web-private,chat-secret,iedit-(public)], [])
+   => [send(diary,notes)]
+110. allowed(public, secret)
+   => true
+111. check([copy(tax,chat),send(iedit,web),send(web,notes)], [diary-(public),notes-(public),tax-(public),web-secret,chat-secret,iedit-(public)], [])
+   => [send(web,notes)]
+112. allowed(public, secret)
+   => true
+113. check([copy(diary,tax),send(diary,web)], [diary-secret,notes-secret,tax-secret,web-(public),chat-(public),iedit-(public)], [diary-tax])
+   => [send(diary,web)]
+114. allowed(secret, private)
+   => false
+115. check([copy(web,iedit),paste(tax,iedit),send(web,notes),copy(iedit,iedit),copy(notes,tax)], [diary-private,notes-private,tax-private,web-private,chat-private,iedit-private], [web-iedit])
+   => []
+116. allowed(secret, secret)
+   => true
+117. check([send(diary,web)], [diary-(public),notes-secret,tax-secret,web-private,chat-(public),iedit-private], [])
+   => []
+118. allowed(public, public)
+   => true
+119. check([send(diary,tax),copy(iedit,web),copy(notes,tax)], [diary-private,notes-secret,tax-private,web-secret,chat-private,iedit-secret], [])
+   => [copy(notes,tax)]
+120. allowed(secret, private)
+   => false
+121. check([copy(diary,chat),copy(diary,chat),send(notes,iedit),copy(notes,tax),paste(tax,diary)], [diary-(public),notes-(public),tax-private,web-secret,chat-secret,iedit-private], [])
+   => [paste(tax,diary)]
+122. allowed(secret, private)
+   => false
+123. check([send(web,chat),paste(tax,web)], [diary-secret,notes-private,tax-private,web-private,chat-private,iedit-private], [])
+   => []
+124. allowed(public, secret)
+   => true
+125. check([paste(chat,web),send(diary,tax)], [diary-(public),notes-(public),tax-private,web-secret,chat-(public),iedit-private], [])
+   => []
+126. allowed(private, private)
+   => true
+127. check([send(chat,notes),paste(chat,chat),send(tax,chat),paste(chat,iedit)], [diary-secret,notes-secret,tax-private,web-(public),chat-secret,iedit-secret], [])
+   => []
+128. allowed(public, secret)
+   => true
+129. check([copy(iedit,web),send(tax,web),copy(iedit,chat),copy(diary,diary)], [diary-private,notes-secret,tax-private,web-private,chat-(public),iedit-(public)], [])
+   => []
+130. allowed(public, private)
+   => true
+131. check([copy(chat,chat),send(diary,diary),paste(tax,chat),paste(notes,diary),send(notes,notes)], [diary-(public),notes-private,tax-(public),web-secret,chat-private,iedit-secret], [])
+   => [paste(notes,diary)]
+132. allowed(public, private)
+   => true
+133. check([paste(iedit,web),paste(web,diary)], [diary-(public),notes-secret,tax-private,web-secret,chat-private,iedit-(public)], [iedit-web])
+   => [paste(web,diary)]
+134. allowed(private, secret)
+   => true
+135. check([copy(tax,diary),send(web,chat)], [diary-(public),notes-secret,tax-(public),web-secret,chat-private,iedit-(public)], [tax-diary])
+   => [send(web,chat)]
+136. allowed(private, secret)
+   => true
+137. check([send(iedit,notes)], [diary-secret,notes-secret,tax-secret,web-private,chat-(public),iedit-(public)], [])
+   => []
+138. allowed(private, public)
+   => false
+139. check([copy(diary,notes),copy(web,iedit)], [diary-private,notes-(public),tax-private,web-(public),chat-private,iedit-secret], [])
+   => [copy(diary,notes)]
+140. allowed(public, secret)
+   => true
+141. check([paste(diary,notes),paste(chat,chat),send(chat,notes),send(web,iedit)], [diary-(public),notes-private,tax-secret,web-private,chat-secret,iedit-secret], [])
+   => [send(chat,notes)]
+142. allowed(private, public)
+   => false
+143. check([copy(chat,diary)], [diary-secret,notes-secret,tax-(public),web-private,chat-(public),iedit-private], [])
+   => []
+144. allowed(private, public)
+   => false
+145. check([send(iedit,notes),copy(tax,tax)], [diary-secret,notes-(public),tax-private,web-secret,chat-secret,iedit-secret], [])
+   => [send(iedit,notes)]
+146. allowed(public, secret)
+   => true
+147. check([paste(web,tax)], [diary-private,notes-private,tax-secret,web-private,chat-private,iedit-secret], [])
+   => []
+148. allowed(private, public)
+   => false
+149. check([copy(iedit,web),paste(tax,iedit),paste(iedit,web),send(iedit,diary)], [diary-secret,notes-secret,tax-secret,web-secret,chat-private,iedit-private], [])
+   => [paste(tax,iedit)]
+150. allowed(public, secret)
+   => true
+151. check([copy(iedit,tax),send(tax,notes),paste(web,iedit)], [diary-secret,notes-private,tax-private,web-(public),chat-private,iedit-private], [iedit-tax])
+   => []
+152. allowed(private, private)
+   => true
+153. check([paste(tax,diary),paste(chat,chat)], [diary-secret,notes-secret,tax-private,web-(public),chat-secret,iedit-private], [])
+   => []
+154. allowed(secret, secret)
+   => true
+155. check([paste(tax,tax),paste(web,web),copy(diary,tax)], [diary-secret,notes-(public),tax-secret,web-(public),chat-(public),iedit-(public)], [])
+   => []
+156. allowed(private, public)
+   => false
+157. check([paste(iedit,diary)], [diary-(public),notes-private,tax-(public),web-(public),chat-secret,iedit-private], [iedit-diary])
+   => []
+158. allowed(private, secret)
+   => true
+159. check([paste(chat,chat),paste(diary,iedit),copy(web,web),paste(iedit,notes)], [diary-(public),notes-(public),tax-private,web-secret,chat-secret,iedit-private], [])
+   => [paste(iedit,notes)]
+160. allowed(public, private)
+   => true
+161. check([paste(chat,notes)], [diary-secret,notes-secret,tax-private,web-private,chat-secret,iedit-private], [])
+   => []
+162. allowed(public, public)
+   => true
+163. check([copy(notes,chat),paste(diary,diary)], [diary-(public),notes-private,tax-(public),web-private,chat-secret,iedit-secret], [])
+   => []
+164. allowed(private, public)
+   => false
+165. check([copy(chat,web),paste(tax,diary),copy(notes,iedit),paste(web,tax)], [diary-secret,notes-private,tax-secret,web-secret,chat-(public),iedit-(public)], [])
+   => [copy(notes,iedit)]
+166. allowed(secret, secret)
+   => true
+167. check([send(chat,chat),paste(tax,diary),copy(chat,chat)], [diary-private,notes-private,tax-(public),web-(public),chat-secret,iedit-private], [])
+   => []
+168. allowed(public, private)
+   => true
+169. check([paste(iedit,web),send(tax,chat)], [diary-private,notes-private,tax-private,web-(public),chat-secret,iedit-(public)], [])
+   => []
+170. allowed(public, private)
+   => true
+171. check([paste(tax,iedit)], [diary-secret,notes-(public),tax-(public),web-secret,chat-private,iedit-(public)], [])
+   => []
+172. allowed(private, public)
+   => false
+173. check([copy(web,notes)], [diary-private,notes-(public),tax-secret,web-private,chat-secret,iedit-private], [])
+   => [copy(web,notes)]
+174. allowed(secret, private)
+   => false
+175. check([copy(iedit,diary)], [diary-private,notes-secret,tax-secret,web-(public),chat-(public),iedit-private], [iedit-diary])
+   => []
+176. allowed(secret, private)
+   => false
+177. check([copy(chat,iedit),copy(web,tax)], [diary-(public),notes-private,tax-private,web-secret,chat-secret,iedit-(public)], [])
+   => [copy(chat,iedit),copy(web,tax)]
+178. allowed(secret, secret)
+   => true
+179. check([copy(notes,diary),copy(diary,tax),send(notes,web)], [diary-secret,notes-(public),tax-(public),web-(public),chat-secret,iedit-(public)], [notes-diary])
+   => [copy(diary,tax)]
+180. allowed(secret, private)
+   => false
+181. check([send(tax,diary)], [diary-secret,notes-private,tax-secret,web-private,chat-(public),iedit-secret], [tax-diary])
+   => []
+182. allowed(private, public)
+   => false
+183. check([send(chat,chat)], [diary-secret,notes-secret,tax-secret,web-private,chat-secret,iedit-secret], [])
+   => []
+184. allowed(public, private)
+   => true
+185. check([paste(web,iedit),paste(web,notes),send(web,web),copy(diary,iedit)], [diary-secret,notes-secret,tax-secret,web-private,chat-(public),iedit-private], [web-iedit])
+   => [copy(diary,iedit)]
+186. allowed(secret, secret)
+   => true
+187. check([send(web,web),copy(chat,notes)], [diary-private,notes-secret,tax-private,web-private,chat-(public),iedit-private], [web-web])
+   => []
+188. allowed(secret, public)
+   => false
+189. check([send(chat,chat)], [diary-secret,notes-private,tax-(public),web-secret,chat-(public),iedit-(public)], [])
+   => []
+190. allowed(public, private)
+   => true
+191. check([copy(web,chat),send(diary,diary),paste(diary,diary),paste(tax,web),send(diary,notes)], [diary-private,notes-private,tax-private,web-secret,chat-private,iedit-private], [web-chat])
+   => []
+192. allowed(public, public)
+   => true
+193. check([paste(chat,web),paste(tax,iedit),send(iedit,tax),copy(chat,web),copy(diary,diary)], [diary-private,notes-secret,tax-secret,web-private,chat-private,iedit-(public)], [chat-web])
+   => [paste(tax,iedit)]
+194. allowed(public, public)
+   => true
+195. check([paste(iedit,notes),copy(web,tax)], [diary-secret,notes-secret,tax-private,web-secret,chat-(public),iedit-private], [])
+   => [copy(web,tax)]
+196. allowed(private, public)
+   => false
+197. check([paste(web,diary),copy(web,notes)], [diary-private,notes-(public),tax-(public),web-(public),chat-private,iedit-secret], [web-diary])
+   => []
+198. allowed(private, public)
+   => false
+199. check([copy(iedit,chat),paste(web,diary),copy(notes,diary),paste(notes,iedit)], [diary-(public),notes-secret,tax-secret,web-(public),chat-private,iedit-private], [])
+   => [copy(notes,diary),paste(notes,iedit)]
+200. allowed(private, public)
+   => false
