@@ -12,12 +12,13 @@ keep private data out of places it shouldn't go, across the whole OS. Files and 
 
 ## Proofs
 
-`proofs/theorems.pl` proves 4 theorems by exhaustion: each one is checked for every case in a finite domain that covers every branch of the definitions. every labelling of three things x, y, z; every action between them; every declassification set of up to one flow.
+`proofs/theorems.pl` proves 5 theorems by exhaustion: each one is checked for every case in a finite domain that covers every branch of the definitions. every labelling of three things x, y, z; every action between them; every declassification set of up to one flow.
 
 1. The labels form a total order: reflexive, transitive and antisymmetric.
 2. Without declassification, an allowed action never moves data to a less private place.
 3. Violations are exactly the actions that go down and weren't declassified.
 4. Two allowed flows in a row are allowed end to end (so a chain of allowed copies can't leak).
+5. A thing with no label never leaks: data from it may only go to a secret place unless declassified, and data sent to an unlabelled thing is judged as if it were public.
 
 ```sh
 swipl -g main -t halt proofs/theorems.pl

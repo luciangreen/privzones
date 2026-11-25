@@ -24,3 +24,11 @@ theorem(violations_exact) :- forall(( labels(Ls), action(A), ( Dc = [] ; flows(A
 
 % 4. Two allowed flows in a row are allowed end to end (so a chain of allowed copies can't leak).
 theorem(allowed_flows_compose) :- forall(( labels(Ls), thing(A), thing(B), thing(C), check([copy(A, B), copy(B, C)], Ls, [], []) ), ( label(Ls, A, LA), label(Ls, C, LC), allowed(LA, LC) )).
+
+% 5. A thing with no label never leaks: data from it may only go to a secret place unless the
+%    flow is declassified, while data from a labelled thing to an unlabelled one is judged as public.
+theorem(unlabelled_source_never_leaks) :- forall(( labels(L0), thing(U), exclude([T-_]>>(T == U), L0, Ls), action(A), flows(A, U-T), T \== U, ( Dc = [] ; Dc = [U-T] ) ),
+    ( check([A], Ls, Dc, V), label(Ls, T, LT), ( LT == secret -> V == [] ; Dc == [] -> V == [A] ; V == [] ) )),
+  forall(( labels(L0), thing(U), exclude([T-_]>>(T == U), L0, Ls), action(A), flows(A, F-U), F \== U ),
+    ( check([A], Ls, [], V), label(Ls, F, LF), ( LF == public -> V == [] ; V == [A] ) )).
+
